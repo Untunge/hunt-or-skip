@@ -107,10 +107,28 @@ def test_lido_go_no_kyc_needed(programs, broke_hunter):
     assert ev.verdict == "GO"
 
 
-def test_spark_caution_on_unknown_fee(programs, broke_hunter):
+def test_spark_no_go_for_broke_hunter(programs, broke_hunter):
+    # Fee verified live 21 Nov 2026: 50 credits (~50 USDC).
     ev = evaluate(programs["spark"], broke_hunter, TODAY)
-    assert ev.verdict == "CAUTION"
-    assert any("fee unknown" in w.lower() for w in ev.warnings)
+    assert ev.verdict == "NO-GO"
+    assert ev.cost_usd == 50
+    assert any("$50" in v for v in ev.vetoes)
+
+
+def test_spark_medium_not_payable(programs, funded_hunter):
+    ev = evaluate(programs["spark"], funded_hunter, TODAY)
+    assert ev.verdict == "NO-GO"
+    assert any("does not pay for Medium" in v for v in ev.vetoes)
+
+
+def test_spark_critical_caution_for_funded_hunter(programs):
+    ev = evaluate(
+        programs["spark"],
+        Hunter(stake_budget_usd=300, hours=8, can_kyc=True, target="critical"),
+        TODAY,
+    )
+    assert ev.verdict == "CAUTION"  # Critical payout unpublished
+    assert ev.cost_usd == 50
 
 
 def test_sport_fun_medium_not_payable(programs, broke_hunter):
