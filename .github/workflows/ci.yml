@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: pip install -e .[test] 2>/dev/null || pip install -e .
+      - name: Install pytest
+        run: pip install pytest
+      - name: Test
+        run: python -m pytest -q
+      - name: Smoke test the CLI
+        run: |
+          hunt-or-skip eval kamino; test $? -eq 1
+          hunt-or-skip eval usdt0; test $? -eq 0
+          hunt-or-skip list --free --no-kyc | head -n 5
