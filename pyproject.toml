@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hunt-or-skip"
+version = "0.1.0"
+description = "Is this bug bounty program worth hunting with YOUR budget?"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "Ahmad Jalaludin AB", email = "ssuntung90@gmail.com" }]
+keywords = ["bug-bounty", "security", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+dependencies = []
+
+[project.scripts]
+hunt-or-skip = "hunt_or_skip.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/Untunge/hunt-or-skip"
+Issues = "https://github.com/Untunge/hunt-or-skip/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hunt_or_skip*"]
+
+[tool.setuptools.package-data]
+hunt_or_skip = ["programs.json"]
