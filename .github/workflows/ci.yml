@@ -22,7 +22,10 @@ jobs:
       - name: Test
         run: python -m pytest -q
       - name: Smoke test the CLI
+        # eval exits 1 for NO-GO by design; capture the code instead of
+        # letting bash -e abort the step before the assertion runs.
         run: |
-          hunt-or-skip eval kamino; test $? -eq 1
-          hunt-or-skip eval usdt0; test $? -eq 0
+          hunt-or-skip eval kamino || code=$?
+          test "${code:-0}" -eq 1
+          hunt-or-skip eval usdt0
           hunt-or-skip list --free --no-kyc | head -n 5
