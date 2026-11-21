@@ -202,6 +202,14 @@ def test_no_program_is_no_go(programs, broke_hunter):
 
 
 def test_unknown_fee_never_go(programs, broke_hunter):
-    for pid in ("gmx", "sky", "usdai"):
+    for pid in ("usdai",):
         ev = evaluate(programs[pid], broke_hunter, TODAY)
         assert ev.verdict in ("CAUTION", "NO-GO"), pid
+
+
+def test_sky_gmx_fees_verified_live(programs, broke_hunter):
+    # Fees read from Immunefi's live listing payload, 21 Nov 2026.
+    for pid, fee in (("sky", 50), ("gmx", 25)):
+        ev = evaluate(programs[pid], broke_hunter, TODAY)
+        assert ev.verdict == "NO-GO", pid
+        assert ev.cost_usd == fee, pid

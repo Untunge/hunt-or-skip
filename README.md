@@ -32,9 +32,10 @@ verified Medium finding. Then I opened the submission form: it accepts
 Critical/High only, and filing costs a **$250 stake**. A Medium could not
 be filed at all. $250 is more than a month's salary where I live.
 
-That week I found the pattern everywhere: 64 of 147 Immunefi programs
-charge pay-to-submit fees, 42 of 47 Cantina bounties charge deposits,
-every Sherlock program takes a $250 stake. The fee is often visible only
+That week I found the pattern everywhere: 88 of 153 Immunefi programs
+charge pay-to-submit fees ($10–$100, read from the live listing on
+21 Nov 2026), 42 of 47 Cantina bounties charge deposits, every Sherlock
+program takes a $250 stake. The fee is often visible only
 on the live form, *after* you hunt.
 
 **hunt-or-skip answers the question before you hunt:** given *my* budget,
